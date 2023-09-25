@@ -11,10 +11,13 @@ import {
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { userState } from "../state"; // import the userState atom
+import { GetCustomersDocument } from "@/gql/graphql";
+import { useQuery } from "@apollo/client";
 
 const Header: React.FC = () => {
   const [user, setUser] = useRecoilState(userState);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { data, loading, error } = useQuery(GetCustomersDocument);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,9 +48,11 @@ const Header: React.FC = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleUserSwitch(1)}>User 1</MenuItem>
-          <MenuItem onClick={() => handleUserSwitch(2)}>User 2</MenuItem>
-          {/* 他のユーザーを追加 */}
+          {data?.customerList!.map((user: any) => (
+            <MenuItem key={user.id} onClick={() => handleUserSwitch(user.id)}>
+              {user.name}
+            </MenuItem>
+          ))}
         </Menu>
       </Toolbar>
     </AppBar>
