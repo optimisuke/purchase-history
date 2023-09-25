@@ -5,5 +5,5 @@ import { User } from "./types/types";
 
 export const userState = atom<User | null>({
   key: "userState",
-  default: null,
+  default: { id: 1, name: "Lucas Bill" },
 });

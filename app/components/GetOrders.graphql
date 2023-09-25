@@ -9,6 +9,7 @@ query GetOrders($id: Int!) {
         }
       }
       id
+      createdat
     }
     id
     name

@@ -12,44 +12,50 @@ import {
   Typography,
   Avatar,
 } from "@mui/material";
-import { Order } from "../types/types"; // もしtypes.tsなどに型定義を別ファイルで行っている場合
-import { Purchase } from "@/types/types";
+import { GetOrdersDocument } from "@/gql/graphql";
+import { useQuery } from "@apollo/client";
+import { useRecoilState } from "recoil";
+import { userState } from "@/state";
 
-type OrderHistoryProps = {
-  orders: Order[];
-};
+const OrderHistory: React.FC = () => {
+  const [user, _] = useRecoilState(userState);
+  const id = user?.id!;
+  const { loading, error, data } = useQuery(GetOrdersDocument, {
+    variables: { id: id },
+  });
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
-const OrderHistory: React.FC<OrderHistoryProps> = ({ orders }) => {
   return (
     <div>
-      {orders.map((order) => (
-        <Paper key={order.orderId} style={{ marginBottom: "16px" }}>
+      {data?.customer?.order!.map((order) => (
+        <Paper key={order?.id} style={{ marginBottom: "16px" }}>
           <Typography variant="h6" style={{ padding: "16px" }}>
-            Order ID: {order.orderId}
+            Order ID: {order?.id}, Order Data: {order?.createdat}
           </Typography>
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Item ID</TableCell>
-                  <TableCell>Item Image</TableCell>
-                  <TableCell>Item Name</TableCell>
+                  <TableCell style={{ width: 20 }}>ID</TableCell>
+                  <TableCell style={{ width: 30 }}>Image</TableCell>
+                  <TableCell style={{ width: 1000 }}>Name</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {order.purchases.map((purchase: Purchase) => (
-                  <TableRow key={purchase.itemId}>
-                    <TableCell>{purchase.itemId}</TableCell>
-                    <TableCell>
-                      <Avatar
-                        variant="square"
-                        src={purchase.itemImage}
-                        sx={{ width: 64, height: 64 }} // ここでサイズを調整
-                      />
-                    </TableCell>
-                    <TableCell>{purchase.itemName}</TableCell>
-                  </TableRow>
-                ))}
+                {/* {order.purchases.map((purchase: Purchase) => ( */}
+                <TableRow key={order?.lineitem?.product?.id}>
+                  <TableCell>{order?.lineitem?.product?.id}</TableCell>
+                  <TableCell>
+                    <Avatar
+                      variant="square"
+                      src={order?.lineitem?.product?.image!}
+                      sx={{ width: 100, height: 100 }} // ここでサイズを調整
+                    />
+                  </TableCell>
+                  <TableCell>{order?.lineitem?.product?.title}</TableCell>
+                </TableRow>
+                {/* ))} */}
               </TableBody>
             </Table>
           </TableContainer>

@@ -62,3 +62,7 @@ npm install recoil
 npm install graphql @graphql-codegen/client-preset
 npm i -D @graphql-codegen/cli
 ```
+
+```bash
+npm install @apollo/client
+```

@@ -7,15 +7,14 @@ import {
   Typography,
   Menu,
   MenuItem,
-  Avatar,
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { userState } from "../state"; // import the userState atom
+import { userState } from "@/state";
 import { GetCustomersDocument } from "@/gql/graphql";
 import { useQuery } from "@apollo/client";
 
 const Header: React.FC = () => {
-  const [user, setUser] = useRecoilState(userState);
+  const [_, setUser] = useRecoilState(userState);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { data, loading, error } = useQuery(GetCustomersDocument);
 

@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "query GetCustomers {\n  customerList {\n    id\n    name\n  }\n}": types.GetCustomersDocument,
-    "query GetOrders($id: Int!) {\n  customer(id: $id) {\n    order {\n      lineitem {\n        product {\n          id\n          image\n          title\n        }\n      }\n      id\n    }\n    id\n    name\n  }\n}": types.GetOrdersDocument,
+    "query GetOrders($id: Int!) {\n  customer(id: $id) {\n    order {\n      lineitem {\n        product {\n          id\n          image\n          title\n        }\n      }\n      id\n      createdat\n    }\n    id\n    name\n  }\n}": types.GetOrdersDocument,
 };
 
 /**
@@ -38,7 +38,7 @@ export function graphql(source: "query GetCustomers {\n  customerList {\n    id\
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query GetOrders($id: Int!) {\n  customer(id: $id) {\n    order {\n      lineitem {\n        product {\n          id\n          image\n          title\n        }\n      }\n      id\n    }\n    id\n    name\n  }\n}"): (typeof documents)["query GetOrders($id: Int!) {\n  customer(id: $id) {\n    order {\n      lineitem {\n        product {\n          id\n          image\n          title\n        }\n      }\n      id\n    }\n    id\n    name\n  }\n}"];
+export function graphql(source: "query GetOrders($id: Int!) {\n  customer(id: $id) {\n    order {\n      lineitem {\n        product {\n          id\n          image\n          title\n        }\n      }\n      id\n      createdat\n    }\n    id\n    name\n  }\n}"): (typeof documents)["query GetOrders($id: Int!) {\n  customer(id: $id) {\n    order {\n      lineitem {\n        product {\n          id\n          image\n          title\n        }\n      }\n      id\n      createdat\n    }\n    id\n    name\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
