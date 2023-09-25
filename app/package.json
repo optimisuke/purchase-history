@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "graphql-codegen-esm --config codegen.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
     "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.14.10",
     "@types/node": "20.6.5",
@@ -19,6 +21,7 @@
     "autoprefixer": "10.4.16",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.2",
+    "graphql": "^16.8.1",
     "next": "13.5.2",
     "postcss": "8.4.30",
     "react": "18.2.0",
@@ -26,5 +29,8 @@
     "recoil": "^0.7.7",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0"
   }
 }
