@@ -1,0 +1,16 @@
+query GetOrders($id: Int!) {
+  customer(id: $id) {
+    order {
+      lineitem {
+        product {
+          id
+          image
+          title
+        }
+      }
+      id
+    }
+    id
+    name
+  }
+}

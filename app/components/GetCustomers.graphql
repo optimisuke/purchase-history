@@ -1,0 +1,6 @@
+query GetCustomers {
+  customerList {
+    id
+    name
+  }
+}
