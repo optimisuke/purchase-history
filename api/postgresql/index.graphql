@@ -30,7 +30,8 @@ type Order {
   customer: Customer @materializer(query: "customerUsingOrder_customerid_fkey")
   customerid: Int!
   id: Int!
-  lineitem: Lineitem @materializer(query: "lineitemUsingLineitem_orderid_fkey")
+  lineitem: [Lineitem]
+    @materializer(query: "lineitemUsingLineitem_orderid_fkey")
   shippingcost: Float
   trackingid: String
 }
@@ -166,7 +167,7 @@ type Query {
       """
       configuration: "postgresql_config"
     )
-  lineitemUsingLineitem_orderid_fkey(id: Int!): Lineitem
+  lineitemUsingLineitem_orderid_fkey(id: Int!): [Lineitem]
     @dbquery(
       type: "postgresql"
       schema: "public"

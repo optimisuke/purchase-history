@@ -43,19 +43,19 @@ const OrderHistory: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* {order.purchases.map((purchase: Purchase) => ( */}
-                <TableRow key={order?.lineitem?.product?.id}>
-                  <TableCell>{order?.lineitem?.product?.id}</TableCell>
-                  <TableCell>
-                    <Avatar
-                      variant="square"
-                      src={order?.lineitem?.product?.image!}
-                      sx={{ width: 100, height: 100 }} // ここでサイズを調整
-                    />
-                  </TableCell>
-                  <TableCell>{order?.lineitem?.product?.title}</TableCell>
-                </TableRow>
-                {/* ))} */}
+                {order?.lineitem!.map((purchase) => (
+                  <TableRow key={purchase?.product?.id}>
+                    <TableCell>{purchase?.product?.id}</TableCell>
+                    <TableCell>
+                      <Avatar
+                        variant="square"
+                        src={purchase?.product?.image!}
+                        sx={{ width: 100, height: 100 }} // ここでサイズを調整
+                      />
+                    </TableCell>
+                    <TableCell>{purchase?.product?.title}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>

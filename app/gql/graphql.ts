@@ -345,7 +345,7 @@ export type Order = {
   customer?: Maybe<Customer>;
   customerid: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
-  lineitem?: Maybe<Lineitem>;
+  lineitem?: Maybe<Array<Maybe<Lineitem>>>;
   shippingcost?: Maybe<Scalars['Float']['output']>;
   trackingid?: Maybe<Scalars['String']['output']>;
 };
@@ -385,7 +385,7 @@ export type Query = {
   lineitem?: Maybe<Lineitem>;
   lineitemList?: Maybe<Array<Maybe<Lineitem>>>;
   lineitemPaginatedList?: Maybe<Array<Maybe<Lineitem>>>;
-  lineitemUsingLineitem_orderid_fkey?: Maybe<Lineitem>;
+  lineitemUsingLineitem_orderid_fkey?: Maybe<Array<Maybe<Lineitem>>>;
   /**  Queries for type 'Order'  */
   order?: Maybe<Order>;
   orderList?: Maybe<Array<Maybe<Order>>>;
@@ -662,7 +662,7 @@ export type GetOrdersQueryVariables = Exact<{
 }>;
 
 
-export type GetOrdersQuery = { __typename?: 'Query', customer?: { __typename?: 'Customer', id: number, name: string, order?: Array<{ __typename?: 'Order', id: number, createdat: any, lineitem?: { __typename?: 'Lineitem', product?: { __typename?: 'Product', id: number, image?: string | null, title?: string | null } | null } | null } | null> | null } | null };
+export type GetOrdersQuery = { __typename?: 'Query', customer?: { __typename?: 'Customer', id: number, name: string, order?: Array<{ __typename?: 'Order', id: number, createdat: any, lineitem?: Array<{ __typename?: 'Lineitem', product?: { __typename?: 'Product', id: number, image?: string | null, title?: string | null } | null } | null> | null } | null> | null } | null };
 
 
 export const GetCustomersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCustomers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customerList"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetCustomersQuery, GetCustomersQueryVariables>;
