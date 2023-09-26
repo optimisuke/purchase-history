@@ -16,10 +16,14 @@ import type { NextPage } from "next";
 type Order = {
   id: number;
   createdat: string;
-  purchases: Purchase[];
+  lineitem: Lineitem[];
 };
 
-type Purchase = {
+type Lineitem = {
+  product: Product;
+};
+
+type Product = {
   id: number;
   title: string;
   image: string;
@@ -29,27 +33,33 @@ const orders: Order[] = [
   {
     id: 1,
     createdat: "2023-09-25",
-    purchases: [
+    lineitem: [
       {
-        id: 1,
-        title: "Apple",
-        image: "apple-image-url",
+        product: {
+          id: 1,
+          title: "Apple",
+          image: "apple-image-url",
+        },
       },
       {
-        id: 2,
-        title: "Banana",
-        image: "banana-image-url",
+        product: {
+          id: 2,
+          title: "Banana",
+          image: "banana-image-url",
+        },
       },
     ],
   },
   {
     id: 2,
     createdat: "2023-09-25",
-    purchases: [
+    lineitem: [
       {
-        id: 1,
-        title: "Tomato",
-        image: "tomato-image-url",
+        product: {
+          id: 1,
+          title: "Tomato",
+          image: "tomato-image-url",
+        },
       },
     ],
   },
@@ -60,7 +70,7 @@ const Home: NextPage = () => {
     <div>
       <h1>Order History</h1>
       <div>
-        {orders.map((order) => (
+        {orders.map((order: Order) => (
           <Paper key={order.id} style={{ marginBottom: "16px" }}>
             <Typography variant="h6" style={{ padding: "16px" }}>
               Order ID: {order.id}
@@ -74,16 +84,16 @@ const Home: NextPage = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {order.purchases.map((purchase) => (
-                    <TableRow key={purchase.id}>
+                  {order.lineitem.map((lineitem) => (
+                    <TableRow key={lineitem.product.id}>
                       <TableCell>
                         <Avatar
                           variant="square"
-                          src={purchase.image}
+                          src={lineitem.product.image}
                           sx={{ width: 100, height: 100 }}
                         />
                       </TableCell>
-                      <TableCell>{purchase.title}</TableCell>
+                      <TableCell>{lineitem.product.title}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
