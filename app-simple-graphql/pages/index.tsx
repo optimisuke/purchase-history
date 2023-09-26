@@ -1,6 +1,7 @@
 // pages/index.tsx
 
 import {
+  AppBar,
   Avatar,
   Paper,
   Table,
@@ -9,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Toolbar,
   Typography,
 } from "@mui/material";
 import type { NextPage } from "next";
@@ -52,42 +54,6 @@ type Product = {
   image: string;
 };
 
-const orders: Order[] = [
-  {
-    id: 1,
-    createdat: "2023-09-25",
-    lineitem: [
-      {
-        product: {
-          id: 1,
-          title: "Apple",
-          image: "apple-image-url",
-        },
-      },
-      {
-        product: {
-          id: 2,
-          title: "Banana",
-          image: "banana-image-url",
-        },
-      },
-    ],
-  },
-  {
-    id: 2,
-    createdat: "2023-09-25",
-    lineitem: [
-      {
-        product: {
-          id: 1,
-          title: "Tomato",
-          image: "tomato-image-url",
-        },
-      },
-    ],
-  },
-];
-
 const Home: NextPage = () => {
   // クエリの実行
   const { loading, error, data } = useQuery(GET_ORDERS);
@@ -98,7 +64,13 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <h1>Order History</h1>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Purchase History
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <div>
         {data.customer.order.map((order: Order) => (
           <Paper key={order.id} style={{ marginBottom: "16px" }}>

@@ -1,6 +1,7 @@
 // pages/index.tsx
 
 import {
+  AppBar,
   Avatar,
   Paper,
   Table,
@@ -9,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Toolbar,
   Typography,
 } from "@mui/material";
 import type { NextPage } from "next";
@@ -68,7 +70,13 @@ const orders: Order[] = [
 const Home: NextPage = () => {
   return (
     <div>
-      <h1>Order History</h1>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Purchase History
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <div>
         {orders.map((order: Order) => (
           <Paper key={order.id} style={{ marginBottom: "16px" }}>
