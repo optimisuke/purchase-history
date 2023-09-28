@@ -2,33 +2,20 @@
 
 import { AppProps } from "next/app"; // AppProps をインポート
 import { ApolloProvider } from "@apollo/client";
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY || "invalid-api-key";
 const uri = process.env.NEXT_PUBLIC_API_URI || "invalid-api-uri";
 
-const httpLink = new HttpLink({
+const client = new ApolloClient({
   uri: uri,
-});
-const authLink = setContext((_, { headers }) => {
-  return {
-    headers: {
-      ...headers,
-      authorization: `Apikey ${apiKey}`,
-    },
-  };
-});
-
-const apolloClient = new ApolloClient({
+  headers: { Authorization: `apikey ${apiKey}` },
   cache: new InMemoryCache(),
-  link: authLink.concat(httpLink),
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // AppProps 型を適用
   return (
-    <ApolloProvider client={apolloClient}>
+    <ApolloProvider client={client}>
       <Component {...pageProps} />
     </ApolloProvider>
   );

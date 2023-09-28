@@ -31,43 +31,43 @@ type Product = {
   image: string;
 };
 
-const orders: Order[] = [
-  {
-    id: 1,
-    createdat: "2023-09-25",
-    lineitem: [
-      {
-        product: {
-          id: 1,
-          title: "Apple",
-          image: "apple-image-url",
-        },
-      },
-      {
-        product: {
-          id: 2,
-          title: "Banana",
-          image: "banana-image-url",
-        },
-      },
-    ],
-  },
-  {
-    id: 2,
-    createdat: "2023-09-25",
-    lineitem: [
-      {
-        product: {
-          id: 1,
-          title: "Tomato",
-          image: "tomato-image-url",
-        },
-      },
-    ],
-  },
-];
-
 const Home: NextPage = () => {
+  const orders: Order[] = [
+    {
+      id: 1,
+      createdat: "2023-09-25",
+      lineitem: [
+        {
+          product: {
+            id: 1,
+            title: "Apple",
+            image: "apple-image-url",
+          },
+        },
+        {
+          product: {
+            id: 2,
+            title: "Banana",
+            image: "banana-image-url",
+          },
+        },
+      ],
+    },
+    {
+      id: 2,
+      createdat: "2023-09-25",
+      lineitem: [
+        {
+          product: {
+            id: 1,
+            title: "Tomato",
+            image: "tomato-image-url",
+          },
+        },
+      ],
+    },
+  ];
+
   return (
     <div>
       <AppBar position="static">

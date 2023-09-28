@@ -14,29 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import type { NextPage } from "next";
-
 import { useQuery, gql } from "@apollo/client";
-
-// 定義したGraphQLクエリ
-const GET_ORDERS = gql`
-  query GetOrders {
-    customer(id: 1) {
-      order {
-        lineitem {
-          product {
-            id
-            image
-            title
-          }
-        }
-        id
-        createdat
-      }
-      id
-      name
-    }
-  }
-`;
 
 type Order = {
   id: number;
@@ -55,12 +33,35 @@ type Product = {
 };
 
 const Home: NextPage = () => {
-  // クエリの実行
-  const { loading, error, data } = useQuery(GET_ORDERS);
+  const { loading, error, data } = useQuery(
+    gql`
+      query GetOrders($id: Int!) {
+        customer(id: $id) {
+          order {
+            lineitem {
+              product {
+                id
+                image
+                title
+              }
+            }
+            id
+            createdat
+          }
+          id
+          name
+        }
+      }
+    `,
+    {
+      variables: { id: 4 },
+    }
+  );
 
-  // ローディングとエラーハンドリング
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <p>Something went wrong...</p>;
+
+  const orders: Order[] = data.customer.order;
 
   return (
     <div>
@@ -72,7 +73,7 @@ const Home: NextPage = () => {
         </Toolbar>
       </AppBar>
       <div>
-        {data.customer.order.map((order: Order) => (
+        {orders.map((order: Order) => (
           <Paper key={order.id} style={{ marginBottom: "16px" }}>
             <Typography variant="h6" style={{ padding: "16px" }}>
               Order ID: {order.id}
